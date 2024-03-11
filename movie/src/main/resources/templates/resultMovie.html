@@ -30,7 +30,7 @@
 
 <h2 th:if="${movie == null}">Movie Not Found!</h2>
 
-<img th:unless="${movie == null}" th:src="${movie.getPoster()}" alt="movie-poster">
+<img th:unless="${movie == null}" th:src="*{'data:image/png;base64,'+ movie.getImage()}" alt="movie-poster">
 <table class="table table-sm"  th:unless="${movie == null}">
 
     <tbody>

@@ -64,8 +64,12 @@
         <th scope="col" th:text="${movie.getLanguage()}"></th>
         <th scope="col" th:text="${movie.getCountry()}"></th>
         <th scope="col" th:text="${movie.getAwards()}"></th>
-        <th scope="col" th:text="${movie.getPoster()}"></th>
+        <th scope="col"><img th:unless="${movie == null}" th:src="'data:image/png;base64,' + ${movie.getImage()}" alt="movie-poster" width="100px"></th>
         <th scope="col" th:text="${movie.getRatings()}"></th>
+
+
+
+
 
     </tr>
     </tbody>

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import dev.johnkyaw.movie.model.Movie;
 import dev.johnkyaw.movie.model.Ratings;
 import dev.johnkyaw.movie.service.MovieServices;
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,11 +23,10 @@ public class MovieController {
 
     @PostMapping("/result")
     public String showSavedMovies(@RequestParam("movieName") String movieName, Model model) throws JsonProcessingException {
+        Movie movie = movieServices.getMovieFromAPI(movieName);
 
         //get rotten tomato rating
-        Movie movie = movieServices.getMovieFromDB(movieName);
         Ratings rtRating = null;
-
         List<Ratings> ratingsList = movie.getRatings();
         if(!ratingsList.isEmpty()) {
             for(Ratings rating : movie.getRatings()) {
@@ -37,8 +37,13 @@ public class MovieController {
             }
         }
 
+//        //convert blob to image
+//        String base64encodedImage = Base64.encodeBase64String(movie.getImage());
+
         model.addAttribute("rating", rtRating);
         model.addAttribute("movie", movie);
+//        model.addAttribute("image", base64encodedImage);
+
         return "resultMovie";
     }
 

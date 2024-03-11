@@ -84,5 +84,8 @@ public class Movie {
     @JoinColumn(name = "movie_id")
     private List<Ratings> ratings;
 
+    @Lob
+    @Column(name = "image", columnDefinition = "LONGBLOB")
+    private String image;
 }
 
